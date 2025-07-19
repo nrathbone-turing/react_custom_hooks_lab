@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 export function useLocalStorage(key, initialValue = null) {
    
+    // TODO: Consider lazy initialization with useState(() => ...) to improve performance slightly.
+    // See: https://react.dev/reference/react/useState#lazy-initialization
+
     let data = localStorage.getItem(key);
     
     // Get the value of localStorage data if it's not null
