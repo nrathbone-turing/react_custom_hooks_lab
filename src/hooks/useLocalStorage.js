@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 
 export function useLocalStorage(key, initialValue = null) {
+   
+    // Create a state to represent input (parsed) data
+    const [state, setState] = useState(data)
 
-  // 1. Get item from localStorage
+    // Get the value of localStorage data
+    const data = localStorage.getItem(key)
+    // If found, return that data
+    if (data !== null) return data
+    // otherwise return initialValue (null)
+    else return initialValue
 
-  // 2. If found, parse and use as initial state; otherwise, use initialValue
-  
-  // 3. Return [value, setValue]
+    // useEffect to update `localStorage` on value/key change of the user
+    useEffect(() => {
+        localStorage.setItem(key, JSON.stringify(state)); // call the setItem method to set values in the local storage
+    }, [key, state]); //dependency array includes both `key` and `state`
 
-  // 4. useEffect to update localStorage on value/key change
-
+    // Return state and setter function
+    return [key, state]    
 }
