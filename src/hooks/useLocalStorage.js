@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 
 export function useLocalStorage(key, initialValue = null) {
    
-    // Create a state to represent input (parsed) data
-    const [state, setState] = useState(data)
+    let data = localStorage.getItem(key);
+    
+    // Get the value of localStorage data if it's not null
+    if (data !== null) {
+        data = JSON.parse(data);
+    } else {
+        // otherwise return initialValue
+        data = initialValue;
+    }
 
-    // Get the value of localStorage data
-    const data = localStorage.getItem(key)
-    // If found, return that data
-    if (data !== null) return data
-    // otherwise return initialValue (null)
-    else return initialValue
+    // then create/initialize a state to represent the input data
+    const [state, setState] = useState(data)
 
     // useEffect to update `localStorage` on value/key change of the user
     useEffect(() => {
@@ -18,5 +21,5 @@ export function useLocalStorage(key, initialValue = null) {
     }, [key, state]); //dependency array includes both `key` and `state`
 
     // Return state and setter function
-    return [key, state]    
+    return [state, setState]    
 }
